@@ -3,12 +3,17 @@
 import { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from "../context/UserContext"
+import CreateRoomModal from "../pages/CreateRoomModal"
+import JoinRoomModal from "../pages/JoinRoomModal"
 
 export default function Dashboard() {
   const nav = useNavigate()
   const { user, logout, loading } = useContext(UserContext)
   const [history, setHistory] = useState([])
   const [fetchingHistory, setFetchingHistory] = useState(true)
+  const [openModal, setOpenModal] = useState(false)
+  
+const [openJoin, setOpenJoin] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -43,7 +48,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="dashboard-container" style={{ background: "#0a0a0b", minHeight: "100vh", color: "#e2e8f0" }}>
+    <div className="dashboard-container relative" style={{ background: "#0a0a0b", minHeight: "100vh", color: "#e2e8f0" }}>
       <header style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", padding: "1rem 2rem", background: "#0f0f11" }}>
         <div className="header-content">
           <h1>Code Room</h1>
@@ -72,18 +77,26 @@ export default function Dashboard() {
             <div className="card-icon">📝</div>
             <h2>Create a Room</h2>
             <p>Start a new collaborative coding session with customizable settings</p>
-            <button onClick={() => nav("/create-room")} className="btn btn-primary">
+            {/* <button onClick={() => nav("/create-room")} className="btn btn-primary">
               Create Room
-            </button>
+            </button> */}
+             <button 
+          className="btn btn-primary"
+          onClick={() => setOpenModal(true)}
+        >
+          Create Room
+        </button>
           </div>
+
+
 
           <div className="card">
             <div className="card-icon">🚪</div>
             <h2>Join a Room</h2>
             <p>Enter an existing session using a room code shared by others</p>
-            <button onClick={() => nav("/join-room")} className="btn btn-primary">
-              Join Room
-            </button>
+           <button className="btn btn-primary" onClick={()=>setOpenJoin(true)}>
+  Join Room
+</button>
           </div>
         </div>
 
@@ -166,6 +179,8 @@ export default function Dashboard() {
           )}
         </div>
       </main>
+      {openModal && <CreateRoomModal open={openModal} onClose={()=>setOpenModal(false)} />}
+          {openJoin && <JoinRoomModal open={openJoin} onClose={()=>setOpenJoin(false)} />}
     </div>
   )
 }

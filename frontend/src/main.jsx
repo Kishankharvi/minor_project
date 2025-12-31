@@ -8,6 +8,8 @@ import { ToastContainer } from "./utils/toast"
 import { connectSocket } from "./services/socket"
 import App from "./App"
 import "./index.css"
+import "@tailwindplus/elements";
+
 
 connectSocket()
 
