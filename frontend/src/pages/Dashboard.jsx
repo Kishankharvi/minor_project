@@ -1,7 +1,7 @@
 "use client"
 
 import { useContext, useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate ,Link} from "react-router-dom"
 import { UserContext } from "../context/UserContext"
 import CreateRoomModal from "../pages/CreateRoomModal"
 import JoinRoomModal from "../pages/JoinRoomModal"
@@ -17,7 +17,7 @@ const [openJoin, setOpenJoin] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) {
-      nav("/")
+      nav("/login")
     }
   }, [user, loading, nav])
 
@@ -51,7 +51,8 @@ const [openJoin, setOpenJoin] = useState(false);
     <div className="dashboard-container relative" style={{ background: "#0a0a0b", minHeight: "100vh", color: "#e2e8f0" }}>
       <header style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", padding: "1rem 2rem", background: "#0f0f11" }}>
         <div className="header-content">
-          <h1>Code Room</h1>
+          <Link to="/" className="logo">
+          <h1>Code Room</h1></Link>
           <div className="header-actions">
             <span className="user-info">
               Welcome, <strong>{user?.username || "User"}</strong>
